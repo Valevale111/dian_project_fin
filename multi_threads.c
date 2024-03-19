@@ -132,6 +132,45 @@ void* video_print_thread(void* arg) {
     return NULL;
 }
 
+//new
+// 视频处理线程函数
+void* video_process_thread(void* arg) {
+    // 假设视频帧大小为 1024 字节
+    // int frame_size = 1024;
+    // int total_frames = *(int*)arg; // 获取视频总帧数
+
+
+    // for (int i = 0; i < total_frames; i++) {
+    //     // 模拟解码操作，分配内存并存储帧数据
+    //     void* frame = malloc(frame_size);
+    //     // 模拟处理帧数据
+    //     usleep(100000); // 模拟解码时间
+    //     enqueue(frame);
+    // }
+    LinkQueue p,px;
+    p = (LinkQueue) malloc(sizeof(QueueNode));
+    px = (*Q);
+    while (px->next != NULL)
+    {
+        px = px->next;
+    }
+    
+    px->next = p;
+    p->frameData = decoder_get_frame();
+
+
+    return NULL;
+}
+
+// 视频打印线程函数
+void* video_print_thread(void* arg) {
+    LinkQueue p = (*Q);
+    rgb2gray_aver(&(p->frameData),7,7);
+    (*Q) = p->next;
+    free(p);
+    return NULL;
+}
+
 int main() {
     pthread_t process_thread, print_thread;
     if(decoder_init("./videos/dragon.mp4")!=0){
