@@ -150,6 +150,8 @@ int example(int my_method,int r1,int r2,char *fvalue)//
                 frame = decoder_get_frame();
                 frame = decoder_get_frame();
                 frame = decoder_get_frame();
+                frame = decoder_get_frame();
+                frame = decoder_get_frame();
                 switch(method){
                    case 1:
                        rgb2gray_aver(&frame,window,step);
@@ -168,7 +170,7 @@ int example(int my_method,int r1,int r2,char *fvalue)//
                        printf("wrong method!\n");
                        exit(1);
                 }
-                count+=4;
+                count+=6;
                 //printf("width=%d,height=%d,linesize=%d\n",frame.width,frame.height,frame.linesize);
                 // curren_fps = get_fps();
                 curren_index = get_frame_index();
@@ -193,7 +195,7 @@ int example(int my_method,int r1,int r2,char *fvalue)//
                 // 根据加速状态更新帧之间的延迟时间
                 my_fps = 30;
                 int time_multiplier = accelerated ? 3 : 1; // 如果加速状态为真，则延迟时间变为原来的三分之一
-                time = (int)(1000000 / (my_fps * time_multiplier)*4);
+                time = (int)(1000000 / (my_fps * time_multiplier)*6);
                 // printf("Stuck here!0\n");
                 usleep(time);
                 // printf("Stuck here1!\n");
